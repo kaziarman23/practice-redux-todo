@@ -1,25 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  value: 0,
-}
+const initialState = [
+  { id: 1, title: "todo1", completed: false },
+  { id: 2, title: "todo2", completed: false },
+  { id: 3, title: "todo3", completed: true },
+];
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const todoSlice = createSlice({
+  name: "todos",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1
+    addTodo: (state, { payload }) => {
+      const newTodo = {
+        id: Date.now(),
+        title: payload.title,
+        completed: false,
+      };
+      state.push(newTodo);
     },
-    decrement: (state) => {
-      state.value -= 1
+    toggleComplete: (state, { payload }) => {
+      const todo = state.find((t) => t.id === payload.id);
+      if (todo) {
+        todo.completed = payload.completed;
+      }
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+    deleteTodo: (state, { payload }) => {
+      return state.filter((todo) => todo.id !== payload.id);
     },
   },
-})
+});
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { addTodo, toggleComplete, deleteTodo } = todoSlice.actions;
 
-export default counterSlice.reducer
+export default todoSlice.reducer;
