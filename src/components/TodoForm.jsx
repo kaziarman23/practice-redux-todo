@@ -1,18 +1,25 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTodo } from '../features/todos/todoSlice';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../features/todos/todoSlice";
+import toast from "react-hot-toast";
 
 function TodoForm() {
   const [value, setValue] = useState("");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(addTodo({
-      title: value
-    }))
-    console.log("user entered: " + value);
+
+    dispatch(
+      addTodo({
+        title: value,
+      })
+    );
+
+    toast.success("New Todo Added.");
+    
+    setValue("");
   };
 
   return (

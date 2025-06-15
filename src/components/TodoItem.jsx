@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { toggleComplete, deleteTodo } from "../features/todos/todoSlice";
+import toast from "react-hot-toast";
 
 const TodoItem = ({ id, title, completed }) => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const TodoItem = ({ id, title, completed }) => {
 
   const handleDelete = () => {
     dispatch(deleteTodo({ id: id }));
+    toast.success("Todo Deleted Successfully!");
   };
 
   return (
