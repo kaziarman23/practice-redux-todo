@@ -22,6 +22,14 @@ const todosApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Todos"],
     }),
+    updateTodo: builder.mutation({
+      query: ({ id, title }) => ({
+        url: `/todos/${id}`,
+        method: "PATCH",
+        body: { title },
+      }),
+      invalidatesTags: ["Todos"],
+    }),
     deleteTodo: builder.mutation({
       query: (id) => ({
         url: `/todos/${id}`,
@@ -36,6 +44,7 @@ export const {
   useGetTodosQuery,
   useAddTodoMutation,
   useToggleTodoMutation,
+  useUpdateTodoMutation,
   useDeleteTodoMutation,
 } = todosApi;
 
